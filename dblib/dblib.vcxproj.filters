@@ -18,12 +18,18 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\Desktop\db\dbtable.h">
+    <ClInclude Include="dbdate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dbtable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\Desktop\db\dbtable.cpp">
+    <ClCompile Include="dbdate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dbtable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

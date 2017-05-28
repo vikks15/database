@@ -11,12 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\Desktop\db\main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\dblib\dblib.vcxproj">
       <Project>{36020573-7e7c-4db3-a49c-262ce394bcdc}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{82994960-1D5B-4C65-A472-BB519E4DC33D}</ProjectGuid>

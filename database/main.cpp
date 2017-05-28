@@ -1,4 +1,5 @@
 #include "dbtable.h"
+#include "dbdate.h"
 
 int main()
 {
@@ -62,15 +63,41 @@ int main()
 
 	}
 
+	return 0;
 
-	/*
+	
 
-	DBtable tab2;
+	/*DBtable tab2;
 	tab.readTable(tab2,"out.txt");
 	tab.printTable(tab2);*/
 
 	
-	return 0;
-	
-	
+	//system("chcp 1251 > nul");
+	//int justint = 0;
+
+	//string d1,d2;	
+	//cout<<"Введите дату: ";
+	//cin>>d1;
+	//DBDate dat1(d1);
+	//if(!dat1.CorrectDate()) return 0;
+	////cout<<"Правильность даты "<<dat1.CorrectDate();
+
+	//cout<<"Дата 1: "<<dat1<<endl;
+
+	//cout<<"Введите число: ";
+	//cin>>justint;	
+	//dat1+=justint;
+	//cout<<"Правильная дата1 += число: "<<dat1<<endl;
+
+	//cout<<"Введите дату: ";
+	//cin>>d1;
+	//DBDate dat2(d1);
+	//cout<<"Дата 2: "<<dat2<<endl;
+	//if(!dat2.CorrectDate()) return 0;
+	//cout<<"Сравнение дат ==: "<<(dat1==dat2)<<endl;
+	//cout<<"Сравнение дат "<<dat1<<">"<<dat2<<": "<<(dat2>dat1)<<endl;
+	//cout<<"Разность дат: "<<dat1-dat2<<endl;
+	//system("pause");
+	//return 0;
+
 }

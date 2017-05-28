@@ -76,10 +76,12 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\Desktop\db\dbtable.h" />
+    <ClInclude Include="dbdate.h" />
+    <ClInclude Include="dbtable.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\Desktop\db\dbtable.cpp" />
+    <ClCompile Include="dbdate.cpp" />
+    <ClCompile Include="dbtable.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

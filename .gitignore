@@ -3,3 +3,10 @@ Debug/
 *database.sln
 *database.v11.suo
 *database.sdf
+*database.vcxproj
+*database.vcxproj.filters
+l1/
+l2/
+*ReadMe.txt
+*dblib.vcxproj
+*dblib.vcxproj.filters
