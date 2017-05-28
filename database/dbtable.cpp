@@ -1,20 +1,20 @@
 #include "dbtable.h"
 
-void DBtable::menu()
+int menu()
 {
-
-	cin>>"¬ведите им€ базы данных";
 	int number = 0;
-	cout<<"1-чтение из файла";
-	cout<<"2-запись в файл";
-	cout<<"3 - вывод на экран";
-	cout<<"4 - выход";
 
+	cout<<"1 - чтение из файла"<<endl;
+	cout<<"2 - запись в файл"<<endl;
+	cout<<"3 - вывод на экран"<<endl;
+	cout<<"4 - выбрать библиотеку"<<endl;
+	cout<<"5 - выйти из текущей библиотеки"<<endl;
+	cout<<"6 - выход"<<endl;
 	cin>>number;
-	switch(number)
-	{
-	}
 
+	cin.clear();
+	cin.ignore(256,'\n');
+	return number;
 }
 
 int DBtable::GetTypeCode(string colName)
@@ -62,7 +62,7 @@ void DBtable::readTable(DBtable &tab1, string filename)
 
 	if(fin.is_open()==0)
 	{
-		cout<<"ќшибка в откритии файла";
+		cout<<"ќшибка в откритии файла"<<endl;
 		system("pause");
 	}
 
@@ -136,11 +136,11 @@ void DBtable::printTable(DBtable tab1)
 	}
 }
 
-void DBtable::record(DBtable tab1)
+void DBtable::record(DBtable tab1, string fname)
 {
 	string type = " ", value = " ";
 	int size = tab1.data.size(), width = 0;
-	ofstream fout("out.txt");
+	ofstream fout(fname);
 
 	it_header it1 = tab1.tableHeaders.begin(); //итератор чтобы было без | в конце
 	for(int i = 0; i<tab1.tableHeaders.size()-1;i++) it1++;

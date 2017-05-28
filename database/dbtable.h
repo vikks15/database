@@ -11,6 +11,8 @@ typedef pair<string,string> myPair;
 typedef map<string, void*>  Row;
 typedef map<string,string>::iterator it_header; // тип итератора по заголовку
 
+int menu();
+
 class DBtable{
 private:
 	string TableName;
@@ -26,7 +28,15 @@ public:
 	void printvalue(void *value, string type, int width);
 	void printTable(DBtable tab1);
 	void writeTableBin(DBtable tab1);
-	void record(DBtable tab1);
-	void menu();
+	void record(DBtable tab1,string fname);
 
 };
+
+//DBTableSet bd(bdName)
+
+//vector <Row> selfRows(string colName,void* val) //search in colname column string equals val
+//{
+//	vector<Row>row;
+//	...
+//	return row;
+//}
