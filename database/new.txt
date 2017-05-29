@@ -1,2 +1,0 @@
-Group|String|Name|String|Number|Int|Surname|String
-ИУ5-46|Иван|1|Иванов

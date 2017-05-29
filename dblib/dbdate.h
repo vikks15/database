@@ -24,7 +24,7 @@ public:
 
 	DBDate(string dat){ //constructor from string
 
-		cout<<"Вызов конструктора"<<endl;
+		//cout<<"Вызов конструктора"<<endl;
 		int  j = 0;
 		char* num[3];
 		char line[255];
@@ -51,7 +51,7 @@ public:
 
 	~DBDate()
 	{
-		cout<<"Вызов деструктора"<<endl;
+		//cout<<"Вызов деструктора"<<endl;
 	}
 
 	int DayInMonth(DBDate& dat);

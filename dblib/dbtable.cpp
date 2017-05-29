@@ -1,29 +1,14 @@
 #include "dbtable.h"
-
-int menu()
-{
-	int number = 0;
-
-	cout<<"1 - чтение из файла"<<endl;
-	cout<<"2 - запись в файл"<<endl;
-	cout<<"3 - вывод на экран"<<endl;
-	cout<<"4 - выбрать библиотеку"<<endl;
-	cout<<"5 - выйти из текущей библиотеки"<<endl;
-	cout<<"6 - выход"<<endl;
-	cin>>number;
-
-	cin.clear();
-	cin.ignore(256,'\n');
-	return number;
-}
+#include "dbdate.h"
 
 int DBtable::GetTypeCode(string colName)
 {
-	string types[3] = {"Int", "Double","String"};
+	string types[4] = {"Int", "Double","String","Date"};
 
 	if (colName==types[0]) return 1;
 	else if (colName==types[1]) return 2;
 	else if (colName==types[2]) return 3;
+	else if (colName==types[3]) return 4;
 }
 
 void* DBtable::getValue(string colName, string value)
@@ -48,7 +33,12 @@ void* DBtable::getValue(string colName, string value)
 			char *buff = new char[value.length()];
 			strcpy_s(buff,value.length()+1,value.c_str());
 			val = buff;
-
+			break;
+		}
+	case 4:
+		{
+			DBDate *dat = new DBDate(value);
+			val=dat;
 			break;
 		}
 	default: break;
@@ -104,7 +94,8 @@ void DBtable::printvalue(void *value, string type, int width)
 	void* v = NULL;
 	if(type == "Int") cout<<setw(width+1)<<*(int*)value;
 	else if (type == "Double") cout<<setw(width+1)<<*(double*)value;
-	else if (type == "String") cout<<setw(width+1)<<(char*)value; 
+	else if (type == "String") cout<<setw(width+7)<<(char*)value; 
+	else if (type == "Date") cout<<setw(8)<<*(DBDate*)value; 
 }
 
 void DBtable::printTable(DBtable tab1)
@@ -116,10 +107,12 @@ void DBtable::printTable(DBtable tab1)
 	it_header it1 = tab1.tableHeaders.begin(); //итератор чтобы было без | в конце
 	for(int i = 0; i<tab1.tableHeaders.size()-1;i++) it1++;
 
-	for(it_header i = tab1.tableHeaders.begin(); i != tab1.tableHeaders.end(); i++)
+	for(it_header i = tab1.tableHeaders.begin(); i != tab1.tableHeaders.end(); i++)//печать шапки 
 	{
-		cout<<i->first<<" "<<i->second; //печать шапки 
-		if(i!=it1)cout<<"|";
+		 cout<<i->first<<" "<<i->second; 
+
+		 if((i->second=="String" && i!=it1)) cout<<setw(7)<<"|";
+		 else if(i!=it1)cout<<"|";
 	}
 	cout<<endl;
 

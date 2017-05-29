@@ -5,8 +5,7 @@ Debug/
 *database.sdf
 *database.vcxproj
 *database.vcxproj.filters
-l1/
-l2/
-*ReadMe.txt
-*dblib.vcxproj
-*dblib.vcxproj.filters
+
+*.txt
+#*/dblib.vcxproj
+#*/dblib.vcxproj.filters

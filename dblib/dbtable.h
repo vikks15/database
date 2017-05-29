@@ -32,6 +32,58 @@ public:
 
 };
 
+class DBTableSet{
+private: string DBName;
+public: map<string, DBtable> dbset;
+		map<string,DBtable>::iterator it;
+
+		void readSet()
+		{
+			ifstream fin("DBTables.txt");
+			string tableName;
+
+			if(fin.is_open()==0)
+			{
+				cout<<"Ошибка в откритии файла"<<endl;
+				system("pause");
+			}
+
+			while(getline(fin,tableName)){
+				DBtable t;
+				t.readTable(t,tableName);
+				dbset.insert(make_pair(tableName, t));	
+			}
+
+
+		}
+		void printSet()
+		{
+			for(it = dbset.begin(); it!=dbset.end(); it++)
+			{
+				cout<<endl<<"Имя таблицы: "<<(it->first);
+				(it->second).printTable(it->second);
+			}
+		}
+		void addToSet (string DBName)
+		{
+			DBtable table;
+			string filename;
+			cout<<"Введите имя файла: ";
+			cin>>filename;
+			table.readTable(table,filename);
+			cout<<"Таблица считана"<<endl;
+			dbset.insert(make_pair(DBName,table));
+			//set.db[DBName]=table;
+			cout<<"Таблица записана в базу"<<endl;
+		}
+
+		void DBWrite(string DBName){};
+		DBTableSet (){};
+		//DBTableSet (string DBNum):DBName(DBNum){};
+		DBtable& operator[](string tabName){return dbset[tabName];}
+
+};
+
 //DBTableSet bd(bdName)
 
 //vector <Row> selfRows(string colName,void* val) //search in colname column string equals val
