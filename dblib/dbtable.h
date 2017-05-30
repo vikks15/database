@@ -13,22 +13,25 @@ typedef map<string,string>::iterator it_header; // тип итератора по заголовку
 
 int menu();
 
+int GetTypeCode(string colName);
+void* getValue(string colName, string value);
+
 class DBtable{
 private:
 	string TableName;
 
 public:
-	map<string,string> tableHeaders; //шапка таблицы
-	vector<Row> data; //строки таблицы
+	map<string,string> tableHeaders; //table header
+	vector<Row> data; //table rows
 	DBtable(){} //конструктор по умолчанию
 	~DBtable(){} //деструктор по умолчанию
-	int GetTypeCode(string colName);
-	void* getValue(string colName, string value);
 	void readTable(DBtable &tab1, string filename);
 	void printvalue(void *value, string type, int width);
 	void printTable(DBtable tab1);
 	void writeTableBin(DBtable tab1);
 	void record(DBtable tab1,string fname);
+	vector <Row> selfRows(string colName, void* obj);
+
 
 };
 
