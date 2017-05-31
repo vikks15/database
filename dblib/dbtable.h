@@ -25,11 +25,11 @@ public:
 	vector<Row> data; //table rows
 	DBtable(){} //конструктор по умолчанию
 	~DBtable(){} //деструктор по умолчанию
-	void readTable(DBtable &tab1, string filename);
+	void readTable(string filename);
 	void printvalue(void *value, string type, int width);
-	void printTable(DBtable tab1);
+	void printTable();
 	void writeTableBin(DBtable tab1);
-	void record(DBtable tab1,string fname);
+	void record(string fname);
 	vector <Row> selfRows(string colName, void* obj);
 
 
@@ -53,7 +53,7 @@ public: map<string, DBtable> dbset;
 
 			while(getline(fin,tableName)){
 				DBtable t;
-				t.readTable(t,tableName);
+				t.readTable(tableName);
 				dbset.insert(make_pair(tableName, t));	
 			}
 
@@ -64,7 +64,7 @@ public: map<string, DBtable> dbset;
 			for(it = dbset.begin(); it!=dbset.end(); it++)
 			{
 				cout<<endl<<"Имя таблицы: "<<(it->first);
-				(it->second).printTable(it->second);
+				(it->second).printTable();
 			}
 		}
 		void addToSet (string DBName)
@@ -73,7 +73,7 @@ public: map<string, DBtable> dbset;
 			string filename;
 			cout<<"Введите имя файла: ";
 			cin>>filename;
-			table.readTable(table,filename);
+			table.readTable(filename);
 			cout<<"Таблица считана"<<endl;
 			dbset.insert(make_pair(DBName,table));
 			//set.db[DBName]=table;

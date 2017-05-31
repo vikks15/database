@@ -48,7 +48,7 @@ void* getValue(string colType, string value)
 	return val;
 }
 
-void DBtable::readTable(DBtable &tab1, string filename)
+void DBtable::readTable(string filename)
 {
 	ifstream fin(filename); 
 
@@ -70,7 +70,7 @@ void DBtable::readTable(DBtable &tab1, string filename)
 
 	}
 
-	for(int i = 0; i<tab1Head.size(); i+=2) tab1.tableHeaders[tab1Head[i]]=tab1Head[i+1];//запись шапки в структуры dbtable
+	for(int i = 0; i<tab1Head.size(); i+=2) (*this).tableHeaders[tab1Head[i]]=tab1Head[i+1];//запись шапки в структуры dbtable
 	while(fin.getline(buff,200)) //запись строк
 	{
 		nexttoken = buff;
@@ -82,7 +82,7 @@ void DBtable::readTable(DBtable &tab1, string filename)
 			i+=2;
 		}
 
-		tab1.data.push_back(curRow);
+		(*this).data.push_back(curRow);
 		//int *c = (int*)tab1.data[0][tab1Head[0]];
 		//cout<<"ghf "<<*c; working
 	}
@@ -104,16 +104,16 @@ void DBtable::printvalue(void *value, string type, int width)
 	}
 }
 
-void DBtable::printTable(DBtable tab1)
+void DBtable::printTable()
 {
 	int width = 0;
-	int size = tab1.data.size();
-	cout<<tab1.TableName<<endl;
+	int size = (*this).data.size();
+	cout<<(*this).TableName<<endl;
 
-	it_header it1 = tab1.tableHeaders.begin(); //итератор чтобы было без | в конце
-	for(int i = 0; i<tab1.tableHeaders.size()-1;i++) it1++;
+	it_header it1 = (*this).tableHeaders.begin(); //итератор чтобы было без | в конце
+	for(int i = 0; i<(*this).tableHeaders.size()-1;i++) it1++;
 
-	for(it_header i = tab1.tableHeaders.begin(); i != tab1.tableHeaders.end(); i++)//печать шапки 
+	for(it_header i = (*this).tableHeaders.begin(); i != (*this).tableHeaders.end(); i++)//печать шапки 
 	{
 		cout<<i->first<<" "<<i->second; 
 
@@ -124,27 +124,27 @@ void DBtable::printTable(DBtable tab1)
 
 	for(int i = 0; i < size; i++)
 	{
-		for(auto j = tab1.tableHeaders.begin(); j!= tab1.tableHeaders.end(); j++) 
+		for(auto j = (*this).tableHeaders.begin(); j!= (*this).tableHeaders.end(); j++) 
 		{
 
 			width = (j->first).length() + (j->second).length(); //ширина столбцов
-			printvalue(tab1.data[i][j->first],j->second, width);
+			printvalue((*this).data[i][j->first],j->second, width);
 			if(j!=it1)cout<<"|";
 		}
 		cout<<endl;
 	}
 }
 
-void DBtable::record(DBtable tab1, string fname)
+void DBtable::record(string fname)
 {
 	string type = " ", value = " ";
-	int size = tab1.data.size(), width = 0;
+	int size = (*this).data.size(), width = 0;
 	ofstream fout(fname);
 
-	it_header it1 = tab1.tableHeaders.begin(); //итератор чтобы было без | в конце
-	for(int i = 0; i<tab1.tableHeaders.size()-1;i++) it1++;
+	it_header it1 = (*this).tableHeaders.begin(); //итератор чтобы было без | в конце
+	for(int i = 0; i<(*this).tableHeaders.size()-1;i++) it1++;
 
-	for(it_header i = tab1.tableHeaders.begin(); i != tab1.tableHeaders.end(); i++)
+	for(it_header i = (*this).tableHeaders.begin(); i != (*this).tableHeaders.end(); i++)
 	{
 		fout<<i->first<<"|"<<i->second; //запись шапки
 		if(i!=it1)fout<<"|";
@@ -152,7 +152,7 @@ void DBtable::record(DBtable tab1, string fname)
 	fout<<endl;
 	for(int i = 0; i < size; i++)
 	{
-		for(auto j = tab1.tableHeaders.begin(); j!= tab1.tableHeaders.end(); j++) 
+		for(auto j = (*this).tableHeaders.begin(); j!= (*this).tableHeaders.end(); j++) 
 		{
 
 			type = j->second;
@@ -160,9 +160,9 @@ void DBtable::record(DBtable tab1, string fname)
 
 			int otv = 0;
 			void* v = NULL;
-			if(type == "Int") fout<<*(int*)tab1.data[i][j->first];
-			else if (type == "Double") fout<<*(double*)tab1.data[i][j->first];
-			else if (type == "String") fout<<(char*)tab1.data[i][j->first]; 
+			if(type == "Int") fout<<*(int*)(*this).data[i][j->first];
+			else if (type == "Double") fout<<*(double*)(*this).data[i][j->first];
+			else if (type == "String") fout<<(char*)(*this).data[i][j->first]; 
 
 			if(j!=it1)fout<<"|";
 		}

@@ -11,7 +11,7 @@ int main()
 	DBTableSet set;
 	set.readSet();
 
-	//set["Students.txt"].printTable(set["Students.txt"]);
+	//set["Students.txt"].printTable();
 	//set.addToSet("third");
 	//set.printSet();
 
@@ -55,7 +55,6 @@ int main()
 				string bookName;
 				int col,curBookNum; //curBookNum-1 = current Row in Books.txt
 				int myBookNum, check=1;
-				int* pcol;
 				cout<<"Введите название книги: ";
 				getline(cin,bookName);
 				vector <Row> b = set["Books.txt"].selfRows("2.Title",getValue("String",bookName));
@@ -70,8 +69,8 @@ int main()
 						break;
 					}
 
-					int *buff = new int (studId); //no getvalue
-					void *val = buff;
+					//int *buff = new int (studId); 
+					void *val = new int (studId); //no getvalue
 
 					vector <Row> ab = set["Abonements.txt"].selfRows("1.StudentID",val);
 
@@ -83,21 +82,21 @@ int main()
 							check=0;
 							cout<<"У вас уже есть эта книга."<<endl;
 							break;
-							
 						}
-						if (check=0) break;
+						
 					}
+					if (check==0) break;
 
 					col--;
-					pcol=&col;
-					set["Books.txt"].data[curBookNum-1]["5.Number"] = pcol;
-					set["Books.txt"].record(set["Books.txt"],"Books.txt"); //bug
+					*(int*)set["Books.txt"].data[curBookNum-1]["5.Number"] = col;
+					set["Books.txt"].record("Books.txt");
+					set["Books.txt"].printTable();
 
+					delete val;
 					//write abonement///
 				}
 				else cout<<"Данной книги нет в библиотеке"<<endl;
-
-
+				
 				break;
 			}
 		case 2:
