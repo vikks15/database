@@ -70,14 +70,10 @@ public: map<string, DBtable> dbset;
 		void addToSet (string DBName)
 		{
 			DBtable table;
-			string filename;
-			cout<<"Введите имя файла: ";
-			cin>>filename;
-			table.readTable(filename);
-			cout<<"Таблица считана"<<endl;
+			table.readTable(DBName);
 			dbset.insert(make_pair(DBName,table));
 			//set.db[DBName]=table;
-			cout<<"Таблица записана в базу"<<endl;
+	
 		}
 
 		void DBWrite(string DBName){};

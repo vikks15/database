@@ -55,11 +55,14 @@ int main()
 				string bookName;
 				int col,curBookNum; //curBookNum-1 = current Row in Books.txt
 				int myBookNum, check=1;
+				DBDate* d=NULL;
+				void* val=NULL;
+
 				cout<<"Введите название книги: ";
 				getline(cin,bookName);
 				vector <Row> b = set["Books.txt"].selfRows("2.Title",getValue("String",bookName));
 
-				if(b.size()!=0)
+				if(b.size()!=0)	//quantity check
 				{
 					curBookNum=*(int*)b[0]["1.BookID"];
 					col = *(int*)b[0]["5.Number"];
@@ -69,15 +72,18 @@ int main()
 						break;
 					}
 
-					//int *buff = new int (studId); 
-					void *val = new int (studId); //no getvalue
-
+					//--------------------Abonement check-----------------
+					val = new int (studId); //no getvalue
 					vector <Row> ab = set["Abonements.txt"].selfRows("1.StudentID",val);
+					
 
 					for(int i = 0; i<ab.size(); i++)
 					{
 						myBookNum = *(int*)ab[i]["2.BookID"];
-						if (myBookNum==curBookNum) 
+
+						d = (DBDate*)ab[i]["4.InDate"];
+
+						if (myBookNum==curBookNum && d==NULL) 
 						{
 							check=0;
 							cout<<"У вас уже есть эта книга."<<endl;
@@ -86,17 +92,27 @@ int main()
 						
 					}
 					if (check==0) break;
+					//--------------------------------------------------
 
+					//change number of remaining books
 					col--;
-					*(int*)set["Books.txt"].data[curBookNum-1]["5.Number"] = col;
-					set["Books.txt"].record("Books.txt");
-					set["Books.txt"].printTable();
+					*(int*)set["Books.txt"].data[curBookNum-1]["5.Number"] = col;//record in set
+					set["Books.txt"].record("Books.txt");//record in file
 
-					delete val;
-					//write abonement///
+					//------making abonement------------------------
+					ofstream fout("Abonements.txt", ios_base::app);
+					fout<<endl<<studId<<"|"<<curBookNum<<"|"<<"1.06.2017|-";
+					fout.close();
+					set.dbset.erase("Abonements.txt");
+					set.addToSet("Abonements.txt");
+					//----------------------------------------------------------
+
+					cout<<"Книга выдана"<<endl;
 				}
 				else cout<<"Данной книги нет в библиотеке"<<endl;
-				
+
+				delete d;
+				delete val;
 				break;
 			}
 		case 2:
