@@ -5,15 +5,10 @@
 int main()
 {
 	system("chcp 1251 > nul");
-
 	bool m1 = true;
 	int studId;
 	DBTableSet set;
-	set.readSet();
-
-	//set["Students.txt"].printTable();
-	//set.addToSet("third");
-	//set.printSet();
+	set.readSet("DBtables.txt");
 
 	while(m1)
 	{
@@ -40,11 +35,9 @@ int main()
 				break;
 			}
 		case 2: return 0;
-
 		}
 		system("cls");
 	}
-
 
 	while(true)
 	{
@@ -71,25 +64,20 @@ int main()
 						cout<<"Данной книги временно нет."<<endl;
 						break;
 					}
-
 					//--------------------Abonement check-----------------
 					val = new int (studId); //no getvalue
 					vector <Row> ab = set["Abonements.txt"].selfRows("1.StudentID",val);
 					
-
 					for(int i = 0; i<ab.size(); i++)
 					{
 						myBookNum = *(int*)ab[i]["2.BookID"];
-
 						d = (DBDate*)ab[i]["4.InDate"];
-
 						if (myBookNum==curBookNum && d==NULL) 
 						{
 							check=0;
 							cout<<"У вас уже есть эта книга."<<endl;
 							break;
 						}
-						
 					}
 					if (check==0) break;
 					//--------------------------------------------------
@@ -110,32 +98,21 @@ int main()
 					cout<<"Книга выдана"<<endl;
 				}
 				else cout<<"Данной книги нет в библиотеке"<<endl;
-
 				delete d;
 				delete val;
 				break;
 			}
 		case 2:
 			{
-				cout<<"Отдать книгу ";
+				set["Books.txt"].printTable();	
 				break;
 			}
 		case 3:
 			{
-				cout<<"Посмотреть книгу ";
-				break;
-			}
-		case 4:
-			{
 				return 0;
 			}
-
 		}
 		system("pause");
 		system("cls");
 	}
-
-
-
-
 }
